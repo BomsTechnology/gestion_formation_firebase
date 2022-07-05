@@ -68,7 +68,7 @@ const saveRegistration = async () => {
         <router-link
           v-else
           :to="{ name: 'login' }"
-          class="bg-blue-500 px-4 py-3 w-full text-white rounded-md hover:bg-blue-700"
+          class="bg-blue-500 px-4 py-3 w-full text-center text-white rounded-md hover:bg-blue-700"
         >
           Registration
         </router-link>
