@@ -89,9 +89,7 @@ export default function useUsers() {
     });
 
     loading.value = 0;
-    router.push({
-      name: "home",
-    });
+    location.href = "/";
   };
 
   const loginWithEmail = async (logInfo) => {

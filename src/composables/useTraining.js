@@ -10,6 +10,8 @@ import {
 import {
   collection,
   addDoc,
+  query,
+  where,
   getDocs,
   getDoc,
   doc,
@@ -18,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { createConfirmDialog } from "vuejs-confirm-dialog";
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal.vue";
+import ConfirmRegistrationModal from "@/components/ConfirmRegistrationModal.vue";
 export default function useTrainings() {
   const router = useRouter();
   const errors = ref("");
@@ -246,10 +249,50 @@ export default function useTrainings() {
     loading.value = 0;
   };
 
+  const getTrainingByCategory = async (id) => {
+    loading.value = 1;
+    trainings.value = [];
+    const ref = collection(db, "trainings");
+
+    const q = query(ref, where("category.id", "==", id));
+    const querySnapshot = await getDocs(q).catch((err) => {
+      console.log(err.message);
+      errors.value = err.message;
+    });
+    querySnapshot.forEach((doc) => {
+      let training = doc.data();
+      training.id = doc.id;
+      trainings.value.push(training);
+    });
+    loading.value = 0;
+  };
+
+  const registration = async (data) => {
+    loading.value = 1;
+    errors.value = "";
+    const { reveal, onConfirm } = createConfirmDialog(
+      ConfirmRegistrationModal,
+      {
+        question: "Are you sure you want to register for this course?",
+      }
+    );
+    onConfirm(async () => {
+      await addDoc(collection(db, "registrations"), data).catch((err) => {
+        errors.value = err.message;
+        loading.value = 0;
+      });
+      router.push({ name: "account" });
+      loading.value = 0;
+    });
+    reveal();
+  };
+
   const cleanErrors = () => {
     errors.value = "";
   };
   return {
+    registration,
+    getTrainingByCategory,
     updateTraining,
     getTraining,
     training,

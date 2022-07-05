@@ -11,8 +11,8 @@ const { loading, updateTraining, getTraining, training, errors, cleanErrors } =
 const { getTeachers, teachers } = useTeachers();
 const { getCategories, categories } = useCategories();
 onMounted(async () => {
-  getTeachers();
-  getCategories();
+  await getTeachers();
+  await getCategories();
   await getTraining(props.id);
 });
 
@@ -171,7 +171,6 @@ const handelImage = () => {
           <input
             ref="file"
             @change="handelImage()"
-            required
             class="block w-full text-sm text-gray-900 p-2 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
             id="file_input"
             type="file"

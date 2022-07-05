@@ -5,11 +5,14 @@ const NavBar = () => import("@/components/NavBar.vue");
 const DashHome = () => import("@/views/back/DashHome.vue");
 const Home = () => import("@/views/front/Home.vue");
 const Register = () => import("@/views/front/Register.vue");
+const Training = () => import("@/views/front/Training.vue");
+const Account = () => import("@/views/front/Account.vue");
+const TrainingDetail = () => import("@/views/front/TrainingDetail.vue");
 const Login = () => import("@/views/Login.vue");
-import TrainingEdit from "@/views/back/training/TrainingEdit.vue";
 
 const siteName = "Just Learn";
 const routes = [
+  //front offices routes
   {
     path: "/",
     name: "home",
@@ -34,6 +37,18 @@ const routes = [
     },
   },
   {
+    path: "/account",
+    name: "account",
+    components: {
+      default: Account,
+      navbar: NavBar,
+    },
+    meta: {
+      requiresAuth: true,
+      title: siteName + " - Account",
+    },
+  },
+  {
     path: "/register",
     name: "register",
     components: {
@@ -44,6 +59,32 @@ const routes = [
       title: siteName + " - Register",
     },
   },
+  {
+    path: "/training/:id",
+    name: "training",
+    props: true,
+    components: {
+      default: Training,
+      navbar: NavBar,
+    },
+    meta: {
+      title: siteName + " - Training",
+    },
+  },
+  {
+    path: "/training/:id/detail",
+    name: "training.detail",
+    props: true,
+    components: {
+      default: TrainingDetail,
+      navbar: NavBar,
+    },
+    meta: {
+      title: siteName + " - Detail Training",
+    },
+  },
+
+  //back office routes
   {
     path: "/admin",
     name: "admin",
@@ -109,9 +150,9 @@ const routes = [
         path: "training/:id/edit",
         name: "admin.training.edit",
         props: true,
-        component: TrainingEdit,
+        component: () => import("@/views/back/traning/TrainingEdit.vue"),
         meta: {
-          title: siteName + " - Create Training",
+          title: siteName + " - Edit Training",
         },
       },
       {

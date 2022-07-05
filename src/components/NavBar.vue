@@ -3,7 +3,6 @@ import { computed, ref, onMounted } from "vue";
 import { XIcon, MenuIcon } from "@heroicons/vue/solid";
 import { useUserStore } from "@/stores/userStore.js";
 import { CogIcon, LogoutIcon, UserCircleIcon } from "@heroicons/vue/outline";
-import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
 const isLogged = ref(false);
@@ -11,7 +10,6 @@ onMounted(async () => {
   isLogged.value = (await userStore.getCurrentUser()) ? true : false;
 });
 
-const router = useRouter();
 const open = ref(false);
 const show = ref(false);
 const logOut = () => {
@@ -94,7 +92,7 @@ const logOut = () => {
             class="w-32 rounded-md bg-white absolute top-14 right-0 text-sm shadow-lg"
           >
             <router-link
-              :to="{ name: 'admin.dashboard' }"
+              :to="{ name: 'account' }"
               class="w-full py-2 text-center flex px-4 items-center space-x-3 rounded-t-md text-gray-700 hover:bg-blue-500 hover:text-white"
             >
               <CogIcon class="w-5 h-5" />
@@ -171,7 +169,7 @@ const logOut = () => {
         </button>
         <router-link
           v-if="isLogged"
-          :to="{ name: 'login' }"
+          :to="{ name: 'account' }"
           class="text-white py-2 flex items-center px-4 space-x-3 text-lg hover:bg-white bg-blue-500 hover:text-blue-500 rounded"
         >
           <CogIcon class="w-5 h-5" />

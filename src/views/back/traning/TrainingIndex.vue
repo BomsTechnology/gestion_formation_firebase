@@ -165,11 +165,7 @@ onMounted(() => {
             {{ training.teacher.firstname + " " + training.teacher.lastname }}
           </td>
           <td class="px-6 py-4">
-            {{
-              training.description.lenght > 24
-                ? training.description.substring(0, 24) + "..."
-                : training.description
-            }}
+            {{ training.description.substring(0, 24) + "..." }}
           </td>
 
           <td class="px-6 py-4 text-right">

@@ -138,7 +138,7 @@ onMounted(() => {
           </td>
           <td class="px-6 py-4">
             <div class="h-10 w-10 overflow-hidden rounded-full">
-              <img :src="teacher.image" :alt="teacher.name" />
+              <img :src="teacher.image" :alt="teacher.firstname" />
             </div>
           </td>
           <td
